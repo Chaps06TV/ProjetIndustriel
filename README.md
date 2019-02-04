@@ -1,2 +1,2 @@
 # ProjetIndustriel
-Projet Industriel - techniques de Développement et Modélisation
+Projet Industriel - Techniques de Développement et Modélisation
