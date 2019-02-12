@@ -55,44 +55,63 @@
 		<h1 class="font-weight-light" style="text-align: center;">Clients</h1>
 	</div>
 
-    <!-- Call to Action Well -->
-    <div class="card text-white bg-secondary my-3 py-1 text-center">
-      <div class="card-body">
-        <p class="text-white m-0">Le syst&egrave;me fonctionne normalement</p>
-      </div>
+  <!-- Call to Action Well -->
+  <div class="card text-white bg-secondary my-3 py-1 text-center">
+    <div class="card-body">
+      <p class="text-white m-0">Le syst&egrave;me fonctionne normalement</p>
     </div>
+  </div>
 	 
-     <div class="col-md-10 mb-5">
-        <div class="card h-100">
-          <div class="card-body flex-column d-flex">
-            <div>
-              <label>Client</label> <br />
-              <input list="listeClient" id="inputListeClient" name="inputListeClient"/>
-              <datalist id="listeClient" name="listeClient">
+  <div class="row justify-content-center"> 
+    <div class="col-md-5">
+      <div class="card h-100">
+        <div class="card-body flex-column d-flex">
+
+          <form class="col-md-12" id="formClient" name="formClient">
+
+            <div class="form-group">
+              <label for="inputListeClient">Client</label>
+              <input class="col-md-12" list="listeClient" id="inputListeClient" name="inputListeClient"/>
+              <datalist class="col-md-12" id="listeClient" name="listeClient">
                 <option>Lapointe, Dany</option>
                 <option>Lavoie, Marco</option>
                 <option>Wilike, Jo</option>
-              </datalist><br /><br />
-
-              <label>ID</label> <br />
-              <label id="idClient" name="idClient">00</label><br />
-              
-              <label>Nom</label> <br />
-              <input id="nomClient" name="nomClient"></input><br />
-
-              <label>Pr&eacute;nom</label> <br />
-              <input id="prenomClient" name="prenomClient"></input><br />
-
-              <label>Adresse</label> <br />
-              <input id="adresseClient" name="adresseClient"></input><br /><br />
-
-              <button type="button" class="btn btn-success">Ajouter</button>
-
-              <button type="button" class="btn btn-success">Modifier</button>
+              </datalist>
             </div>
-         </div>
+
+            <div class="form-group">
+              <label for="idClient">ID</label><br/>
+              <label id="idClient" name="idClient">00</label>
+            </div>
+
+            <div class="form-group">
+              <label for="nomClient">Nom</label>
+              <input class="col-md-12" id="nomClient" name="nomClient"></input>
+            </div>
+
+            <div class="form-group">
+              <label for="prenomClient">Pr&eacute;nom</label>
+              <input class="col-md-12" id="prenomClient" name="prenomClient"></input>
+            </div>
+
+            <div class="form-group">
+              <label for="adresseClient">Adresse</label>
+              <input class="col-md-12" id="adresseClient" name="adresseClient"></input>
+            </div>
+
+            <div class="row justify-content-center">
+              <button type="button" class="btn btn-primary col-md-4">Ajouter</button>
+              <div class="col-md-5 col-md-offset-1">
+                <button type="button" class="btn btn-primary col-md-12">Modifier</button>
+              </div>
+            </div>
+
+          </form>
+
         </div>
       </div>
+    </div>
+  </div>
 
 
 
