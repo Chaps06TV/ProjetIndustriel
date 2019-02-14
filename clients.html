@@ -71,11 +71,11 @@
 
             <div class="form-group">
               <label for="inputListeClient">Client</label>
-              <input class="col-md-12" list="listeClient" id="inputListeClient" name="inputListeClient"/>
-              <datalist class="col-md-12" id="listeClient" name="listeClient">
-                <option>Lapointe, Dany</option>
-                <option>Lavoie, Marco</option>
-                <option>Wilike, Jo</option>
+              <input class="col-md-12" list="listeClient" id="inputListeClient" name="inputListeClient" onchange="clientChange()" placeholder="<S&eacute;lectionner un client>"/>
+              <datalist id="listeClient" name="listeClient">
+                <option value="Lapointe, Dany">01</option>
+                <option data-id="2">Lavoie, Marco</option>
+                <option data-id="3">Wilike, Jo</option>
               </datalist>
             </div>
 
@@ -86,23 +86,23 @@
 
             <div class="form-group">
               <label for="nomClient">Nom</label>
-              <input class="col-md-12" id="nomClient" name="nomClient"></input>
+              <input class="col-md-12" id="nomClient" name="nomClient" onkeypress="clientChange()" required></input>
             </div>
 
             <div class="form-group">
               <label for="prenomClient">Pr&eacute;nom</label>
-              <input class="col-md-12" id="prenomClient" name="prenomClient"></input>
+              <input class="col-md-12" id="prenomClient" name="prenomClient" onkeypress="clientChange()" required></input>
             </div>
 
             <div class="form-group">
               <label for="adresseClient">Adresse</label>
-              <input class="col-md-12" id="adresseClient" name="adresseClient"></input>
+              <input class="col-md-12" id="adresseClient" name="adresseClient" onkeypress="clientChange()" required></input>
             </div>
 
             <div class="row justify-content-center">
-              <button type="button" class="btn btn-primary col-md-4">Ajouter</button>
+              <input type="submit" value="Ajouter" class="btn btn-primary col-md-4" name="btnAjouter" id="btnAjouter" onclick="ajoutClient()" disabled/>
               <div class="col-md-5 col-md-offset-1">
-                <button type="button" class="btn btn-primary col-md-12">Modifier</button>
+                <input type="submit" value="Modifier" class="btn btn-primary col-md-12" name="btnModifier" id="btnModifier" disabled></input>
               </div>
             </div>
 
@@ -131,6 +131,32 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+   function clientChange(){
+      var clientList = document.getElementById("inputListeClient").value;
+      var btnAjouter = document.getElementById("btnAjouter");
+      var btnModifier = document.getElementById("btnModifier");
+      var textPrenom = document.getElementById("nomClient").value;
+      var textNom = document.getElementById("prenomClient").value;
+      var textAdresse = document.getElementById("adresseClient").value;
+
+      if(clientList.length > 0) {
+        btnAjouter.disabled = true;
+        btnModifier.disabled = false;
+      }
+      else {
+        if(textPrenom.length > 0 && textNom.length > 0 && textAdresse.length > 0)
+          btnAjouter.disabled = false;
+        else{
+          btnAjouter.disabled = true;
+        }    
+        btnModifier.disabled = true;
+      }
+   }
+
+
+  </script>
 
 </body>
 
