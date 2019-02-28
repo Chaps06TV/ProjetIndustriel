@@ -71,12 +71,18 @@
 
             <div class="form-group">
               <label for="inputListeClient">Client</label>
-              <input class="col-md-12" list="listeClient" id="inputListeClient" name="inputListeClient" onchange="clientChange()" placeholder="<S&eacute;lectionner un client>"/>
+              <!--<input class="col-md-12" list="listeClient" id="inputListeClient" name="inputListeClient" onchange="clientChange()" placeholder="<S&eacute;lectionner un client>"/>
               <datalist id="listeClient" name="listeClient">
-                <option value="Lapointe, Dany">01</option>
+                <option value="Lapointe, Dany" id="01">01</option>
                 <option data-id="2">Lavoie, Marco</option>
                 <option data-id="3">Wilike, Jo</option>
-              </datalist>
+              </datalist>-->
+              <select class="col-md-12" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
+                <option value="1">Lapointe, Dany</option>
+                <option value="2">Lavoie, Marco</option>
+                <option value="3">Wilike, Jo</option>
+              </select>
+
             </div>
 
             <div class="form-group">
@@ -86,17 +92,17 @@
 
             <div class="form-group">
               <label for="nomClient">Nom</label>
-              <input class="col-md-12" id="nomClient" name="nomClient" onkeypress="clientChange()" required></input>
+              <input class="col-md-12" id="nomClient" name="nomClient" onkeypress="clientChange()" onchange="clientChange()" required></input>
             </div>
 
             <div class="form-group">
               <label for="prenomClient">Pr&eacute;nom</label>
-              <input class="col-md-12" id="prenomClient" name="prenomClient" onkeypress="clientChange()" required></input>
+              <input class="col-md-12" id="prenomClient" name="prenomClient" onkeypress="clientChange()" onchange="clientChange()" required></input>
             </div>
 
             <div class="form-group">
               <label for="adresseClient">Adresse</label>
-              <input class="col-md-12" id="adresseClient" name="adresseClient" onkeypress="clientChange()" required></input>
+              <input class="col-md-12" id="adresseClient" name="adresseClient" onkeypress="clientChange()" onchange="clientChange()" required></input>
             </div>
 
             <div class="row justify-content-center">
@@ -134,14 +140,15 @@
   <script>
 
    function clientChange(){
-      var clientList = document.getElementById("inputListeClient").value;
+      var clientList = document.getElementById("inputListeClient");
       var btnAjouter = document.getElementById("btnAjouter");
       var btnModifier = document.getElementById("btnModifier");
       var textPrenom = document.getElementById("nomClient").value;
       var textNom = document.getElementById("prenomClient").value;
       var textAdresse = document.getElementById("adresseClient").value;
+      var test = document.getElementById("selectListeClient");
 
-      if(clientList.length > 0) {
+      if(clientList.value.length > 0) {
         btnAjouter.disabled = true;
         btnModifier.disabled = false;
       }
