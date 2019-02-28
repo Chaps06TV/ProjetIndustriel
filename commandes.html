@@ -62,7 +62,66 @@
       </div>
     </div>
 
-   
+   <div class="row justify-content-center"> 
+    <div class="col-md-5">
+      <div class="card h-100">
+        <div class="card-body flex-column d-flex">
+
+          <form class="col-md-12" id="formClient" name="formClient">
+
+            <div class="form-group">
+              <label for="inputListeClient">Client</label>
+              <select class="col-md-12" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
+                <option value="0">S&eacute;lectionner</option>
+                <option value="1">Lapointe, Dany</option>
+                <option value="2">Lavoie, Marco</option>
+                <option value="3">Wilike, Jo</option>
+              </select>
+
+              <label for="inputListeProduction">Production</label>
+              <select class="col-md-12" id="inputListeProduction" name="inputListeProduction" onchange="prodChange()">
+                <option value="0">S&eacute;lectionner</option>
+                <option value="1">Prod 1</option>
+                <option value="2">Prod 2</option>
+                <option value="3">Prod 3</option>
+              </select>
+
+
+            </div>
+
+            <div class="form-group">
+              <label for="idProd">ID</label><br/>
+              <label id="idProd" name="idProd">00</label>
+            </div>
+
+            <div class="form-group">
+              <label for="nomProd">Nom</label>
+              <input class="col-md-12" id="nomProd" name="nomProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+            </div>
+
+            <div class="form-group">
+              <label for="quantiteProd">Quantit&eacute;</label>
+              <input class="col-md-12" id="quantiteProd" name="quantiteProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+            </div>
+
+            <div class="form-group">
+              <label for="dateEchProd">Date d'&eacute;ch&eacute;ance</label>
+              <input type="date" class="col-md-12" id="dateEchProd" name="dateEchProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+            </div>
+
+            <div class="row justify-content-center">
+              <input type="submit" value="Ajouter" class="btn btn-primary col-md-4" name="btnAjouter" id="btnAjouter" onclick="ajoutProd()" disabled/>
+              <div class="col-md-5 col-md-offset-1">
+                <input type="submit" value="Modifier" class="btn btn-primary col-md-12" name="btnModifier" id="btnModifier" onclick="editProd()" disabled></input>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
     </div>
     <!-- /.row -->
@@ -81,6 +140,44 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function prodChange(){
+      var clientList = document.getElementById("inputListeClient").value;
+      var prodList = document.getElementById("inputListeProduction").value;
+      var btnAjouter = document.getElementById("btnAjouter");
+      var btnModifier = document.getElementById("btnModifier");
+      var textNom = document.getElementById("nomProd").value;
+      var textQte = document.getElementById("quantiteProd").value;
+      var textDate = document.getElementById("dateEchProd").value;
+
+      if(clientList != "0") {
+        btnAjouter.disabled = true;
+        btnModifier.disabled = false;
+      }
+      else {
+        if(textQte.length > 0 && textDate.length > 0 && textNom.length > 0 && prodList != "0")
+          btnAjouter.disabled = false;
+        else{
+          btnAjouter.disabled = true;
+        }    
+        btnModifier.disabled = true;
+      }
+
+    }
+
+    function clientChange(){
+        prodChange();
+    }
+
+    function ajoutProd(){
+
+    }
+
+    function editProd() {
+
+    }
+  </script>
 
 </body>
 

@@ -78,6 +78,7 @@
                 <option data-id="3">Wilike, Jo</option>
               </datalist>-->
               <select class="col-md-12" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
+                <option value="0">S&eacute;lectionner</option>
                 <option value="1">Lapointe, Dany</option>
                 <option value="2">Lavoie, Marco</option>
                 <option value="3">Wilike, Jo</option>
@@ -108,7 +109,7 @@
             <div class="row justify-content-center">
               <input type="submit" value="Ajouter" class="btn btn-primary col-md-4" name="btnAjouter" id="btnAjouter" onclick="ajoutClient()" disabled/>
               <div class="col-md-5 col-md-offset-1">
-                <input type="submit" value="Modifier" class="btn btn-primary col-md-12" name="btnModifier" id="btnModifier" disabled></input>
+                <input type="submit" value="Modifier" class="btn btn-primary col-md-12" name="btnModifier" id="btnModifier" onclick="editClient()" disabled></input>
               </div>
             </div>
 
@@ -140,15 +141,14 @@
   <script>
 
    function clientChange(){
-      var clientList = document.getElementById("inputListeClient");
+      var clientList = document.getElementById("inputListeClient").value;
       var btnAjouter = document.getElementById("btnAjouter");
       var btnModifier = document.getElementById("btnModifier");
       var textPrenom = document.getElementById("nomClient").value;
       var textNom = document.getElementById("prenomClient").value;
       var textAdresse = document.getElementById("adresseClient").value;
-      var test = document.getElementById("selectListeClient");
 
-      if(clientList.value.length > 0) {
+      if(clientList != "0") {
         btnAjouter.disabled = true;
         btnModifier.disabled = false;
       }
@@ -161,6 +161,21 @@
         btnModifier.disabled = true;
       }
    }
+
+   function ajoutClient(){
+
+   }
+
+   function editClient(){
+
+   }
+
+   // ======= socket.io =======
+
+
+
+
+   
 
 
   </script>
