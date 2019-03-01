@@ -51,9 +51,9 @@
   <!-- Page Content -->
   <div class="container">
 
-	<div class="col-lg-12 my-4 py-4">
-		<h1 class="font-weight-light" style="text-align: center;">Cuves</h1>
-	</div>
+  	<div class="col-lg-12 my-4 py-4">
+  		<h1 class="font-weight-light" style="text-align: center;">Cuves</h1>
+  	</div>
 
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-3 py-1 text-center">
@@ -62,9 +62,7 @@
       </div>
     </div>
 
-
-
-    <table class="table table-hover">
+    <table class="table table-hover col-lg-12">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -75,46 +73,19 @@
           <th scope="col">Client</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
+      <tbody id="tableBody" name="tableBody">
+        <!-- <tr> TEMPLATE
           <th scope="row">1</th>
           <td>Prod 1</td>
           <td>160&deg;C</td>
           <td>150 Litres</td>
           <td>2018-02-15</td>
           <td>Lapointe, Dany</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Prod 2</td>
-          <td>67&deg;C</td>
-          <td>49 Litres</td>
-          <td>2018-03-20</td>
-          <td>Lavoie, Marco</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Prod 3</td>
-          <td>86&deg;C</td>
-          <td>86 Litres</td>
-          <td>2018-03-26</td>
-          <td>Wilkie, Jo</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>Prod 4</td>
-          <td>6&deg;C</td>
-          <td>23 Litres</td>
-          <td>2018-04-02</td>
-          <td>Lapointe, Dany</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
-	
-	
-	
-	
-  </div style="margin-top: 100px;"> 
+    <div class="col-lg-12" style="height: 80px;"></div>
+  </div> 
   <!-- /.container -->
 
   <!-- Footer -->
@@ -128,6 +99,23 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    Populer(); //Populer automatiquement au loading
+    function Populer(){
+      var tableBody = document.getElementById("tableBody");
+
+      var i;
+      for (i = 1; i <= 7; i++) {
+        var randomInt1 = Math.floor(Math.random() * 160); // TESTING: Génère 2 Int random pour populer le tableau
+        var randomInt2 = Math.floor(Math.random() * 100);
+        var a = "<tr><th scope=\"row\">" + i + "</th><td>Prod " + i + "</td><td>" + randomInt1 + "&deg;C</td><td>" + randomInt2 + " Litres</td><td>2018-04-02</td><td>Lapointe, Dany</td></tr>";
+        tableBody.insertAdjacentHTML('beforeend', a);
+      }
+
+
+    }
+
+  </script>
 
 </body>
 
