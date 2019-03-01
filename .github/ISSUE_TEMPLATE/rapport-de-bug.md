@@ -1,6 +1,6 @@
 ---
 name: Rapport de Bug
-about: Create a bug report
+about: Créer un rapport de bug
 title: Rapport de Bug
 labels: bug
 assignees: 2601637, Chaps06TV
