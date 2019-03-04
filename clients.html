@@ -159,20 +159,37 @@
       }
    }
 
-   function ajoutClient(){
+   // ======= socket.io =======
+  // Connexion à socket.io
+  var socket = io.connect('http://localhost:8080');
+  
+  socket.emit('load_Cb');
+  
+  
+  socket.on('reponse_load_Cb', function(data) {
+      var cb = document.getElementById("inputListeClient");
+      var result = data.result;
+      for (var i in result) {
+        var el = document.createElement("option");
+        el.id = result[i].clientId;
+        el.innerHTML = result[i].nom + ", " + result[i].prenom;
+        cb.appendChild(el);
+      }
+  })
+  
 
-   }
+  function ajoutClient(){
+    
+    var prenom = document.getElementById("prenomClient").value;
+    var nom = document.getElementById("nomClient").value;
+    var adresse = document.getElementById("adresseClient").value;
+    
+    socket.emit('nouveau_client', {prenom: prenom, nom: nom, adresse: adresse});
+  }
 
    function editClient(){
 
    }
-
-   // ======= socket.io =======
-
-
-
-
-
 
 
   </script>
