@@ -71,7 +71,7 @@
 
             <div class="form-group">
               <label for="inputListeClient">Client</label>
-              <select class="col-md-12" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
+              <select class="col-md-12 form-control" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
                 <option value="0">S&eacute;lectionner</option>
                 <option value="1">Lapointe, Dany</option>
                 <option value="2">Lavoie, Marco</option>
@@ -79,7 +79,7 @@
               </select>
 
               <label for="inputListeProduction">Production</label>
-              <select class="col-md-12" id="inputListeProduction" name="inputListeProduction" onchange="prodChange()">
+              <select class="col-md-12 form-control" id="inputListeProduction" name="inputListeProduction" onchange="prodChange()">
                 <option value="0">S&eacute;lectionner</option>
                 <option value="1">Prod 1</option>
                 <option value="2">Prod 2</option>
@@ -95,17 +95,17 @@
 
             <div class="form-group">
               <label for="nomProd">Nom</label>
-              <input class="col-md-12" id="nomProd" name="nomProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+              <input class="col-md-12 form-control" id="nomProd" name="nomProd" onkeypress="Validation()" onchange="Validation()" required></input>
             </div>
 
             <div class="form-group">
               <label for="quantiteProd">Quantit&eacute;</label>
-              <input class="col-md-12" id="quantiteProd" name="quantiteProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+              <input class="col-md-12 form-control" id="quantiteProd" name="quantiteProd" onkeypress="Validation()" onchange="Validation()" required></input>
             </div>
 
             <div class="form-group">
               <label for="dateEchProd">Date d'&eacute;ch&eacute;ance</label>
-              <input type="date" class="col-md-12" id="dateEchProd" name="dateEchProd" onkeypress="prodChange()" onchange="prodChange()" required></input>
+              <input type="date" class="col-md-12 form-control" id="dateEchProd" name="dateEchProd" onkeypress="Validation()" onchange="Validation()" required></input>
             </div>
 
             <div class="row justify-content-center">
@@ -142,6 +142,18 @@
 
   <script>
     function prodChange(){
+      document.getElementById("nomProd").value = "";
+      document.getElementById("quantiteProd").value = "";
+      document.getElementById("dateEchProd").value = "";
+
+
+      // Remplir les fields selon la production choisie ici
+
+
+      Validation();
+    }
+
+    function Validation() {
       var clientList = document.getElementById("inputListeClient").value;
       var prodList = document.getElementById("inputListeProduction").value;
       var btnAjouter = document.getElementById("btnAjouter");
@@ -150,30 +162,36 @@
       var textQte = document.getElementById("quantiteProd").value;
       var textDate = document.getElementById("dateEchProd").value;
 
-      if(clientList != "0") {
+      if(clientList > "0" && prodList > "0") {
         btnAjouter.disabled = true;
         btnModifier.disabled = false;
       }
       else {
-        if(textQte.length > 0 && textDate.length > 0 && textNom.length > 0 && prodList != "0")
+        if(textQte.length > 0 && textDate.length > 0 && textNom.length > 0 && clientList > "0")
           btnAjouter.disabled = false;
         else{
           btnAjouter.disabled = true;
         }    
         btnModifier.disabled = true;
       }
-
     }
 
     function clientChange(){
-        prodChange();
+
+      // Populer les productions selon le client choisi ici
+
+      Validation();
     }
 
     function ajoutProd(){
 
+      // Ajout d'une commande (Nom, Quantité, Date)
+
     }
 
     function editProd() {
+
+      // Modifier une commande (ID, Nom, Quantité, Date)
 
     }
   </script>

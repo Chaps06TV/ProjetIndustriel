@@ -85,13 +85,13 @@
         </tr>
       </thead>
       <tbody id="tableBody" name="tableBody">
-        <!-- <tr> TEMPLATE
+        <!-- TEMPLATE
+        0606 <tr> 
           <th scope="row">1</th>
           <td>Prod 1</td>
           <td>160&deg;C</td>
           <td>150 Litres</td>
           <td>2018-02-15</td>
-          <td>Lapointe, Dany</td>
         </tr> -->
       </tbody>
     </table>
@@ -111,16 +111,27 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script>
-    Populer();
+    Populer(); 
+
     function Populer() {
+      // Populer le tableau selon le client
       var listeClient = document.getElementById("inputListeClient");
-      var id = listeClient.value;
+      var id = listeClient.value; // ID du client
 
       var tableBody = document.getElementById("tableBody");
-      tableBody.innerHTML = '';
+      tableBody.innerHTML = ''; // Vider
+
+      /* Ajouter des entrées dans le tableau:
+     
+        var a = "<tr><th scope=\"row\">" + [ID] + "</th><td>" + [NOM PRODUCTION] + "</td><td>" + [TEMPÉRATURE] + "&deg;C</td><td>" + [QUANTITÉE] + " Litres</td><td>" + [DATE DE PRODUCTION] + "</td></tr>";
+        tableBody.insertAdjacentHTML('beforeend', a);
+
+      */
 
       if (id == 0) {
-        // Tout afficher
+        // Si aucun de sélectionné, tout afficher
+        
+        // TESTING: Ajouter des row random
         var i;
         for (i = 1; i <= 7; i++) {
         var randomInt1 = Math.floor(Math.random() * 160); // TESTING: Génère 2 Int random pour populer le tableau
