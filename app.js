@@ -15,13 +15,24 @@ var con = mysql.createConnection({
 
 // Chargement de la page index.html
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/clients.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 // Chargement de la page client.html
-app.get('/client', function (req, res) {
-  res.sendfile(__dirname + '/client.html');
+app.get('/clients', function (req, res) {
+  res.sendfile(__dirname + '/clients.html');
 });
+
+// Chargement de la page commandes.html
+app.get('/commandes', function (req, res) {
+  res.sendfile(__dirname + '/commandes.html');
+});
+
+// Chargement de la page cuves.html
+app.get('/cuves', function (req, res) {
+  res.sendfile(__dirname + '/cuves.html');
+});
+
 
 io.sockets.on('connection', function(socket){
 	// Dès qu'on nous donne un pseudo, on le stocke en variable de session et on informe les autres personnes
