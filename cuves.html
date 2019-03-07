@@ -35,18 +35,22 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="clients">Clients</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="commandes">Commandes</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="cuves">Cuves</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="clients">Clients</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
+
+
+  <!-- Gap -->
+  <div class="text-white my-5 py-1 text-center"></div>
 
   <!-- Page Content -->
   <div class="container">
@@ -54,13 +58,6 @@
   	<div class="col-lg-12 my-4 py-4">
   		<h1 class="font-weight-light" style="text-align: center;">Cuves</h1>
   	</div>
-
-    <!-- Call to Action Well -->
-    <div class="card text-white bg-secondary my-3 py-1 text-center">
-      <div class="card-body">
-        <p class="text-white m-0">Le syst&egrave;me fonctionne normalement</p>
-      </div>
-    </div>
 
     <div class="row" id="formRecherche" name="formRecherche">
       <div class="col-lg-5">
@@ -133,7 +130,7 @@
         
         // TESTING: Ajouter des row random
         var i;
-        for (i = 1; i <= 7; i++) {
+        for (i = 1; i <= 50; i++) {
         var randomInt1 = Math.floor(Math.random() * 160); // TESTING: Génère 2 Int random pour populer le tableau
         var randomInt2 = Math.floor(Math.random() * 100);
         var a = "<tr><th scope=\"row\">" + i + "</th><td>Prod " + i + "</td><td>" + randomInt1 + "&deg;C</td><td>" + randomInt2 + " Litres</td><td>2018-04-02</td></tr>";

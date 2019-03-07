@@ -45,7 +45,16 @@ io.sockets.on('connection', function(socket){
 		  socket.emit('reponse_load_Cb',{result});
 			});
 		});
-				
+	});
+
+	socket.on('load_client', function() {
+		con.connect(function(err) {
+		  console.log("Connected!");
+		  var sql = "SELECT prenom, nom, adresse FROM tblclient WHERE clientID=" + data.id;
+		  con.query(sql, function (err, result) {
+		  socket.emit('reponse_load_client',{result});
+			});
+		});
 	});
 
 	// Dès qu'on nous donne un pseudo, on le stocke en variable de session et on informe les autres personnes

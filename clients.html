@@ -34,19 +34,22 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="clients">Clients</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="commandes">Commandes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="cuves">Cuves</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="clients">Clients</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- Gap -->
+  <div class="text-white my-5 py-1 text-center"></div>
 
   <!-- Page Content -->
   <div class="container">
@@ -54,13 +57,6 @@
 	<div class="col-lg-12 my-4 py-4">
 		<h1 class="font-weight-light" style="text-align: center;">Clients</h1>
 	</div>
-
-  <!-- Call to Action Well -->
-  <div class="card text-white bg-secondary my-3 py-1 text-center">
-    <div class="card-body">
-      <p class="text-white m-0">Le syst&egrave;me fonctionne normalement</p>
-    </div>
-  </div>
 	 
   <div class="row justify-content-center"> 
     <div class="col-md-5">
@@ -77,11 +73,8 @@
                 <option data-id="2">Lavoie, Marco</option>
                 <option data-id="3">Wilike, Jo</option>
               </datalist>-->
-              <select class="col-md-12 form-control" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
+              <select class="col-md-12 form-control" id="inputListeClient" name="inputListeClient" onchange="clientSelectionChange()">
                 <option value="0">S&eacute;lectionner</option>
-                <option value="1">Lapointe, Dany</option>
-                <option value="2">Lavoie, Marco</option>
-                <option value="3">Wilike, Jo</option>
               </select>
 
             </div>
@@ -120,7 +113,7 @@
     </div>
   </div>
 
-	 <div class="col-lg-12" style="height: 80px;"></div>
+	 
   </div>
   <!-- /.container -->
 
@@ -159,6 +152,25 @@
       }
    }
 
+  function clientSelectionChange() {
+    var listeClient = document.getElementById("inputListeClient");
+    var id = listeClient.value; // ID du client
+
+    document.getElementById("idClient").innerHTML = id;
+
+    socket.emit('load_client', {id: id});  
+  }
+
+  socket.on('reponse_load_client', function(data) {
+    var result = data.result;
+    document.getElementById("nomClient").value = result[0].nom;
+    document.getElementById("prenomClient").value = result[0].prenom;
+    document.getElementById("adresseClient").value = result[0].adresse;
+
+    clientChange();
+  })
+
+
    // ======= socket.io =======
   // Connexion à socket.io
   var socket = io.connect('http://localhost:8080');
@@ -188,6 +200,12 @@
   }
 
    function editClient(){
+
+   }
+
+   function populerClient() {
+    var listeClient = document.getElementById("inputListeClient");
+
 
    }
 
