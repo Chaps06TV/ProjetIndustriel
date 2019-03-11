@@ -10,7 +10,7 @@ var con = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
   password: "",
-  database: "test"
+  database: "bdd_industriel"
 });
 
 // Chargement de la page index.html
