@@ -39,20 +39,40 @@ io.sockets.on('connection', function(socket){
 	socket.on('load_Cb', function() {
 		
 		con.connect(function(err) {
-		  console.log("Connected!");
-		  var sql = "SELECT clientId, prenom, nom FROM tblclient";
+		  var sql = "SELECT clientId, prenom, nom FROM tblclient ORDER BY nom";
+  		  console.log("load_Cb: " + sql);
 		  con.query(sql, function (err, result) {
 		  socket.emit('reponse_load_Cb',{result});
 			});
 		});
 	});
 
-	socket.on('load_client', function() {
+	socket.on('load_client', function(data) {
 		con.connect(function(err) {
-		  console.log("Connected!");
-		  var sql = "SELECT prenom, nom, adresse FROM tblclient WHERE clientID=" + data.id;
+		  var sql = "SELECT prenom, nom, adresse FROM tblclient WHERE clientID=" + data.idClient;
+		  console.log("load_client: " + sql);
 		  con.query(sql, function (err, result) {
 		  socket.emit('reponse_load_client',{result});
+			});
+		});
+	});
+
+	socket.on('load_commande', function(data) {
+		con.connect(function(err) {
+		  var sql = "SELECT nom, quantite, echeance FROM tblProduction WHERE productId=" + data.idCommande;
+		  console.log("load_commande: " + sql);
+		  con.query(sql, function (err, result) {
+		  socket.emit('reponse_load_commande',{result});
+			});
+		});
+	});
+
+	socket.on('load_commande_client', function(data) {
+		con.connect(function(err) {
+		  var sql = "SELECT productID, nom FROM tblproduction WHERE clientID=" + data.idClient + " ORDER BY echeance";
+		  console.log("load_commande_client: " + sql);
+		  con.query(sql, function (err, result) {
+		  socket.emit('reponse_load_commande_client',{result});
 			});
 		});
 	});
@@ -63,18 +83,26 @@ io.sockets.on('connection', function(socket){
 		var nom = data.nom;
 		var adresse = data.adresse;
 		  con.connect(function(err) {
-		  console.log("Connected!");
 		  var sql = "INSERT INTO tblclient (prenom, nom, adresse) VALUES ('" + prenom + "','" + nom + "','" + adresse + "')";
+		  console.log("nouveau_client: " + sql);
 		  con.query(sql, function (err, result) {
 		  });
 		});
 	});
 
-	// Dès qu'on reçoit un message, on récupère le pseudo de son auteur et on le transmet aux autres personnes
-	socket.on('message', function (message) {
-		message = ent.encode(message);
-		socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message});
-	}); 
+	// Fonction qui insere une nouvelle commande dans la base de donnee
+	socket.on('nouvelle_commande', function(data) {
+		var clientId = data.clientId;
+		var nomProd = data.nomProd;
+		var qte = data.qte;
+		var date = data.date;
+		  con.connect(function(err) {
+		  var sql = "INSERT INTO tblproduction (clientId, nom, quantite, echeance) VALUES ('" + clientId + "','" + nomProd + "','" + qte + "','" + date + "')";
+		  console.log("nouvelle_commande: " + sql);
+		  con.query(sql, function (err, result) {
+		  });
+		});
+	});
 
 });
 

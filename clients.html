@@ -128,6 +128,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script>
 
    function clientChange(){
@@ -152,13 +153,26 @@
       }
    }
 
+   // ======= socket.io =======
+  // Connexion à socket.io
+  var socket = io.connect('http://chaps06.ddns.net:80');
+  
+  socket.emit('load_Cb');
+
   function clientSelectionChange() {
     var listeClient = document.getElementById("inputListeClient");
     var id = listeClient.value; // ID du client
 
     document.getElementById("idClient").innerHTML = id;
-
-    socket.emit('load_client', {id: id});  
+    if(id != "0") {
+      socket.emit('load_client', {idClient: id});  
+    }
+    else {
+      document.getElementById("nomClient").value = "";
+      document.getElementById("prenomClient").value = "";
+      document.getElementById("adresseClient").value = "";
+    }
+    
   }
 
   socket.on('reponse_load_client', function(data) {
@@ -169,13 +183,6 @@
 
     clientChange();
   })
-
-
-   // ======= socket.io =======
-  // Connexion à socket.io
-  var socket = io.connect('http://localhost:8080');
-  
-  socket.emit('load_Cb');
   
   
   socket.on('reponse_load_Cb', function(data) {
@@ -183,7 +190,7 @@
       var result = data.result;
       for (var i in result) {
         var el = document.createElement("option");
-        el.id = result[i].clientId;
+        el.value = result[i].clientId;
         el.innerHTML = result[i].nom + ", " + result[i].prenom;
         cb.appendChild(el);
       }
@@ -202,13 +209,6 @@
    function editClient(){
 
    }
-
-   function populerClient() {
-    var listeClient = document.getElementById("inputListeClient");
-
-
-   }
-
 
   </script>
 
