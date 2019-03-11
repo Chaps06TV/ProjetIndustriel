@@ -1,0 +1,8 @@
+Pour la création du base de donnée il est nécessaire de créer la base de donnée dans MySQL avant d'exécuter le script.
+
+Pour créer la base de donnée:
+1. Créer un nouveau schéma et le nommer 'bdd_industriel', Collation: utf8 - default collation
+2. Cliquer droit sur bdd_industriel dans la section Schema
+3. Cliquer 'Set as Default Schema'
+
+Finalement le script est prêt à s'exécuter.
