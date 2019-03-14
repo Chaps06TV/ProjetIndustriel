@@ -88,4 +88,23 @@ END$$
 
 DELIMITER ;
 
+USE `bdd_industriel`;
+DROP procedure IF EXISTS `production_detail`;
+
+DELIMITER $$
+USE `bdd_industriel`$$
+CREATE PROCEDURE `production_detail` (clientIdIn INT)
+BEGIN
+	SELECT p.productId, nom, temperature, niveau, dateProduction
+	FROM tblProduction p
+	INNER JOIN (SELECT productId, temperature, niveau, dateProduction
+			FROM tblDetail
+            		ORDER BY dateProduction DESC LIMIT 9223372036854775807) d
+	ON p.productId = d.productId
+	WHERE clientId = clientIdIn
+	GROUP BY productId;
+END$$
+
+DELIMITER ;
+
 -- Dump completed on 2019-03-07 14:18:09
