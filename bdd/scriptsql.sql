@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `tbldetail`;
 CREATE TABLE `tbldetail` (
   `productId` int(10) unsigned NOT NULL,
   `temperature` int(11) DEFAULT NULL,
-  `dateProduction` date DEFAULT NULL,
+  `dateProduction` datetime DEFAULT NULL,
   `niveau` float unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -58,7 +58,7 @@ CREATE TABLE `tblproduction` (
   `productId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `clientId` int(10) unsigned NOT NULL,
   `quantite` float unsigned DEFAULT NULL,
-  `echeance` date DEFAULT NULL,
+  `echeance` datetime DEFAULT NULL,
   `nom` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`productId`),
   UNIQUE KEY `productId_UNIQUE` (`productId`)
