@@ -18,7 +18,7 @@
 
 </head>
 
-<body style="min-height: 100vh; position: relative;">
+<body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -72,10 +72,10 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Temp&eacute;rature</th>
-          <th scope="col">Niveau</th>
-          <th scope="col">Date de production</th>
+          <th scope="col" style="text-align: center;">Nom</th>
+          <th scope="col" style="text-align: center;">Temp&eacute;rature</th>
+          <th scope="col" style="text-align: center;">Niveau</th>
+          <th scope="col" style="text-align: center;">Date de production</th>
         </tr>
       </thead>
       <tbody id="tableBody" name="tableBody">
@@ -89,17 +89,9 @@
         </tr> -->
       </tbody>
     </table>
-    <div class="col-lg-12" style="height: 80px;"></div>
   </div> 
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-3 bg-dark" style="position: absolute; bottom: 0; width: 100%;">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; TGI 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -145,10 +137,10 @@
         
         // TESTING: Ajouter des row random
         var i;
-        for (i = 1; i <= 7; i++) {
+        for (i = 1; i <= 50; i++) {
         var randomInt1 = Math.floor(Math.random() * 160); // TESTING: Génère 2 Int random pour populer le tableau
         var randomInt2 = Math.floor(Math.random() * 100);
-        var a = "<tr><th scope=\"row\">" + i + "</th><td>Prod " + i + "</td><td>" + randomInt1 + "&deg;C</td><td>" + randomInt2 + " Litres</td><td>2018-04-02</td></tr>";
+        var a = "<tr><th scope=\"row\">" + i + "</th><td style=\"text-align: center;\">Prod " + i + "</td><td style=\"text-align: center;\">" + randomInt1 + "&deg;C</td><td style=\"text-align: center;\">" + randomInt2 + " Litres</td><td style=\"text-align: center;\">2018-04-02</td></tr>";
         tableBody.insertAdjacentHTML('beforeend', a);
         }
 
