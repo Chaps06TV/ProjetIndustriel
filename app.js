@@ -108,6 +108,20 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 
+	// Code qui modifie une commande aupres de la base de donnee
+	socket.on('modifier_commande', function(data) {
+		var productionId = data.productionId;
+		var nomProd = data.nomProd;
+		var qte = data.qte;
+		var date = data.date;
+		  con.connect(function(err) {
+		  var sql = "UPDATE tblproduction SET nom = '" + nomProd + "',quantite = '" + qte + "', echeance='" + date + "' WHERE productId = " + productionId + ";";
+		  console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { modifier_commande: " + sql + " } ");
+		  con.query(sql, function (err, result) {
+		  });
+		});
+	});
+
 	socket.on('disconnect', function() {
 		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " disconnected");
     	DelConnection(socket.id);

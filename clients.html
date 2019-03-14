@@ -187,6 +187,12 @@
   
   socket.on('reponse_load_Cb', function(data) {
       var cb = document.getElementById("inputListeClient");
+      cb.innerHTML = "";
+      var a = document.createElement("option");
+      a.value = "0";
+      a.innerHTML = "S&eacute;lectionner";
+      cb.appendChild(a);
+
       var result = data.result;
       for (var i in result) {
         var el = document.createElement("option");
