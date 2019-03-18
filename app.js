@@ -90,9 +90,9 @@ io.sockets.on('connection', function(socket){
 		con.connect(function(err) {
 		  var id = data.id;
 		  var sql = "CALL production_detail(?)";
-		  console.log("load_tab: " + sql);
+		  console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { load_tab: " + sql + " } ");
 		  con.query(sql,[id], function (err, result) {
-		  console.log(result);
+		  //console.log(result);
 		  socket.emit('reponse_load_tab',{result});
 			});
 		});
