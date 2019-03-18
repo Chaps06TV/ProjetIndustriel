@@ -18,7 +18,7 @@
 
 </head>
 
-<body style="min-height: 100vh; position: relative;">
+<body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -86,12 +86,12 @@
 
             <div class="form-group">
               <label for="nomProd">Nom</label>
-              <input class="col-md-12 form-control" id="nomProd" name="nomProd" onkeypress="Validation()" onchange="Validation()" required></input>
+              <input class="col-md-12 form-control" id="nomProd" name="nomProd" maxLength="50" onkeypress="Validation()" onchange="Validation()" required></input>
             </div>
 
             <div class="form-group">
-              <label for="quantiteProd">Quantit&eacute; (L)</label>
-              <input class="col-md-12 form-control" type="number" id="quantiteProd" name="quantiteProd" onkeypress="Validation()" onchange="Validation()" required></input>
+              <label for="quantiteProd">Quantit&eacute;</label>
+              <input class="col-md-12 form-control" type="number" id="quantiteProd" name="quantiteProd" min="0" onkeypress="Validation()" onchange="Validation()" required></input>
             </div>
 
             <div class="form-group">
@@ -115,23 +115,19 @@
 
     </div>
     <!-- /.row -->
-    <div class="col-lg-12" style="height: 80px;"></div>
+
   </div>
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-3 bg-dark" style="position: absolute; bottom: 0; width: 100%;">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; TGI 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    var d = new Date();
+    document.getElementById("dateEchProd").setAttribute("min", formatDate("YYYY-MM-DD",d));
+
 
     function Validation() {
       var clientList = document.getElementById("inputListeClient").value;
@@ -167,7 +163,7 @@
     document.getElementById("quantiteProd").value = result[0].quantite;
     document.getElementById("dateEchProd").value = formatDate('YYYY-MM-DD',result[0].echeance);
 
-    clientChange();
+    Validation();
   })
 
     function prodChange(){
@@ -180,6 +176,7 @@
 
       if(prodList.value != "0") {
         document.getElementById("idProd").innerHTML = id;
+
         socket.emit('load_commande', {idCommande: id});
       }
       else {
@@ -230,15 +227,19 @@
 
     //document.getElementById("idClient").innerHTML = id;
     if(id != "0") {
-      socket.emit('load_commande_client', {idClient: id});  
-    } 
-    else {
       document.getElementById("idProd").innerHTML = "0";
       document.getElementById("nomProd").value = "";
       document.getElementById("quantiteProd").value = "";
       document.getElementById("dateEchProd").value = "";
       document.getElementById("inputListeProduction").value = "0";
-    }
+      document.getElementById("inputListeProduction").innerHTML = '';
+      var el = document.createElement("option");
+      el.value = "0";
+      el.innerHTML = "S&eacute;lectionner";
+      document.getElementById("inputListeProduction").appendChild(el);
+
+      socket.emit('load_commande_client', {idClient: id}); 
+    } 
 
     Validation();    
   }
