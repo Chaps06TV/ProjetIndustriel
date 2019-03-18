@@ -131,6 +131,13 @@
       var textNom = document.getElementById("prenomClient").value;
       var textAdresse = document.getElementById("adresseClient").value;
 
+      document.getElementById("inputListeClient").innerHTML = '';
+      var el = document.createElement("option");
+      el.value = "0";
+      el.innerHTML = "S&eacute;lectionner";
+      document.getElementById("inputListeClient").appendChild(el);
+
+
       if(clientList != "0") {
         btnAjouter.disabled = true;
         btnModifier.disabled = false;

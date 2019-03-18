@@ -77,6 +77,22 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 
+	// Fonction qui appele une procedure stockee 
+	// dans la base de donnee pour remplir le tableau 
+	// de la page cuves
+	socket.on('load_tab', function(data) {
+		con.connect(function(err) {
+		  var id = data.id;
+		  var sql = "CALL production_detail(?)";
+		  console.log("load_tab: " + sql);
+		  con.query(sql,[id], function (err, result) {
+		  console.log(result);
+		  socket.emit('reponse_load_tab',{result});
+			});
+		});
+				
+	});
+
 	// Dès qu'on nous donne un pseudo, on le stocke en variable de session et on informe les autres personnes
 	socket.on('nouveau_client', function(data) {
 		var prenom = data.prenom;

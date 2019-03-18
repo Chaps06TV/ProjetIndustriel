@@ -163,7 +163,7 @@
     document.getElementById("quantiteProd").value = result[0].quantite;
     document.getElementById("dateEchProd").value = formatDate('YYYY-MM-DD',result[0].echeance);
 
-    clientChange();
+    Validation();
   })
 
     function prodChange(){
@@ -176,6 +176,7 @@
 
       if(prodList.value != "0") {
         document.getElementById("idProd").innerHTML = id;
+
         socket.emit('load_commande', {idCommande: id});
       }
       else {
@@ -197,6 +198,7 @@
 
   socket.on('reponse_load_commande_client', function(data) {
       var cb = document.getElementById("inputListeProduction");
+
       var result = data.result;
       for (var i in result) {
         var el = document.createElement("option");
@@ -214,15 +216,19 @@
 
     //document.getElementById("idClient").innerHTML = id;
     if(id != "0") {
-      socket.emit('load_commande_client', {idClient: id});  
-    } 
-    else {
       document.getElementById("idProd").innerHTML = "0";
       document.getElementById("nomProd").value = "";
       document.getElementById("quantiteProd").value = "";
       document.getElementById("dateEchProd").value = "";
       document.getElementById("inputListeProduction").value = "0";
-    }
+      document.getElementById("inputListeProduction").innerHTML = '';
+      var el = document.createElement("option");
+      el.value = "0";
+      el.innerHTML = "S&eacute;lectionner";
+      document.getElementById("inputListeProduction").appendChild(el);
+
+      socket.emit('load_commande_client', {idClient: id}); 
+    } 
 
     Validation();    
   }

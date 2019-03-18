@@ -115,41 +115,36 @@
       }
   })
 
+  
     Populer(); 
-
     function Populer() {
-      // Populer le tableau selon le client
-      var listeClient = document.getElementById("inputListeClient");
-      var id = listeClient.value; // ID du client
-
-      var tableBody = document.getElementById("tableBody");
+    // Populer le tableau selon le client
+    var listeClient = document.getElementById("inputListeClient");
+    var id = listeClient.value; // ID du client
+    var tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = ''; // Vider
+    
+    // Envoie de la demande pour remplir le tableau
+    socket.emit('load_tab', {id: id});
+    
+    // Code qui s'execute lors de la reponse pour remplir le tableau
+    socket.on('reponse_load_tab', function(data) {
+      var result = data.result[0];
       tableBody.innerHTML = ''; // Vider
-
-      /* Ajouter des entrées dans le tableau:
-     
-        var a = "<tr><th scope=\"row\">" + [ID] + "</th><td>" + [NOM PRODUCTION] + "</td><td>" + [TEMPÉRATURE] + "&deg;C</td><td>" + [QUANTITÉE] + " Litres</td><td>" + [DATE DE PRODUCTION] + "</td></tr>";
+      // Fonction pour remplir les rangees du tableau selon un client choisit
+      for (var i in result) {
+        var a = "<tr><th scope=\"row\">" + [result[i].productId] + "</th><td style=\"text-align: center;\">" + [result[i].nom] + "</td><td style=\"text-align: center;\">" + [result[i].temperature] + "&deg;C</td><td style=\"text-align: center;\">" + [result[i].niveau] + " Litres</td><td style=\"text-align: center;\">" + formatDate("YYYY-MM-DD",[result[i].dateProduction]) + "</td></tr>";
         tableBody.insertAdjacentHTML('beforeend', a);
-
-      */
-
-      if (id == 0) {
-        // Si aucun de sélectionné, tout afficher
-        
-        // TESTING: Ajouter des row random
-        var i;
-        for (i = 1; i <= 50; i++) {
-        var randomInt1 = Math.floor(Math.random() * 160); // TESTING: Génère 2 Int random pour populer le tableau
-        var randomInt2 = Math.floor(Math.random() * 100);
-        var a = "<tr><th scope=\"row\">" + i + "</th><td style=\"text-align: center;\">Prod " + i + "</td><td style=\"text-align: center;\">" + randomInt1 + "&deg;C</td><td style=\"text-align: center;\">" + randomInt2 + " Litres</td><td style=\"text-align: center;\">2018-04-02</td></tr>";
-        tableBody.insertAdjacentHTML('beforeend', a);
-        }
-
       }
-      else {
-        // Afficher données du client par ID
+    })
+    }
 
-      }
-
+    function formatDate(template, date) {
+      var specs = 'YYYY:MM:DD:HH:mm:ss'.split(':');
+      date = new Date(date || Date.now() - new Date().getTimeZoneOffset() * 6e4);
+      return date.toISOString().split(/[-:TZ]/).reduce(function(template,item,i){
+        return template.split(specs[i]).join(item);
+      }, template);
     }
 
   </script>
