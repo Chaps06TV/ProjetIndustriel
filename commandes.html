@@ -70,9 +70,9 @@
               <label for="inputListeClient">Client</label>
               <select class="col-md-12 form-control" id="inputListeClient" name="inputListeClient" onchange="clientChange()">
                 <option value="0">S&eacute;lectionner</option>
-              </select>
+              </select><br/>
 
-              <label for="inputListeProduction">Production</label>
+              <label for="inputListeProduction">Commande</label>
               <select class="col-md-12 form-control" id="inputListeProduction" name="inputListeProduction" onchange="prodChange()">
                 <option value="0">S&eacute;lectionner</option>
               </select>
@@ -187,6 +187,12 @@
 
   socket.on('reponse_load_Cb', function(data) {
       var cb = document.getElementById("inputListeClient");
+      cb.innerHTML = "";
+      var a = document.createElement("option");
+      a.value = "0";
+      a.innerHTML = "S&eacute;lectionner";
+      cb.appendChild(a);
+
       var result = data.result;
       for (var i in result) {
         var el = document.createElement("option");
@@ -198,6 +204,11 @@
 
   socket.on('reponse_load_commande_client', function(data) {
       var cb = document.getElementById("inputListeProduction");
+      cb.innerHTML = "";
+      var a = document.createElement("option");
+      a.value = "0";
+      a.innerHTML = "S&eacute;lectionner";
+      cb.appendChild(a);
 
       var result = data.result;
       for (var i in result) {
@@ -250,9 +261,15 @@
       }, template);
     }
   
-  // Fonction qu'on appel lors du click de modificaion d'une commande
+  // Fonction qu'on appelle lors du click de modificaion d'une commande
     function editProd() {
-
+      var productionId = document.getElementById("inputListeProduction").value;
+      
+      var nomProd = document.getElementById("nomProd").value;
+      var qte = document.getElementById("quantiteProd").value;
+      var date = document.getElementById("dateEchProd").value;
+      
+      socket.emit('modifier_commande', {productionId: productionId, nomProd: nomProd, qte: qte, date: date});
     }
   </script>
 
