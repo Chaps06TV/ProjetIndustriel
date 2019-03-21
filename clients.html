@@ -131,13 +131,6 @@
       var textNom = document.getElementById("prenomClient").value;
       var textAdresse = document.getElementById("adresseClient").value;
 
-      document.getElementById("inputListeClient").innerHTML = '';
-      var el = document.createElement("option");
-      el.value = "0";
-      el.innerHTML = "S&eacute;lectionner";
-      document.getElementById("inputListeClient").appendChild(el);
-
-
       if(clientList != "0") {
         btnAjouter.disabled = true;
         btnModifier.disabled = false;
@@ -212,7 +205,14 @@
   }
 
    function editClient(){
-
+    var inputClient = document.getElementById("inputListeClient");
+    var clientId = inputClient.value;
+    
+    var prenom = document.getElementById("prenomClient").value;
+    var nom = document.getElementById("nomClient").value;
+    var adresse = document.getElementById("adresseClient").value;
+    
+    socket.emit('modifier_client', {clientId: clientId, prenom: prenom, nom: nom, adresse: adresse});
    }
 
   </script>

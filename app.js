@@ -90,7 +90,7 @@ io.sockets.on('connection', function(socket){
 		con.connect(function(err) {
 		  var id = data.id;
 		  var sql = "CALL production_detail(?)";
-		  console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { load_tab: " + sql + " } ");
+		  console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { load_tab: " + sql + " [ " + id + " ] } ");
 		  con.query(sql,[id], function (err, result) {
 		  //console.log(result);
 		  socket.emit('reponse_load_tab',{result});
@@ -126,6 +126,20 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 
+	// Code qui modifie un client aupres de la base de donnee
+	socket.on('modifier_client', function(data) {
+		var clientId = data.clientId;
+		var prenom = data.prenom;
+		var nom = data.nom;
+		var adresse = data.adresse;
+		  con.connect(function(err) {
+		  var sql = "UPDATE tblclient SET prenom = '" + prenom + "',nom = '" + nom + "', adresse='" + adresse + "' WHERE clientId = " + clientId + ";";
+		  console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { modifier_client: " + sql + " } ");
+		  con.query(sql, function (err, result) {
+		  });
+		});
+	});
+
 	// Code qui modifie une commande aupres de la base de donnee
 	socket.on('modifier_commande', function(data) {
 		var productionId = data.productionId;
@@ -138,6 +152,38 @@ io.sockets.on('connection', function(socket){
 		  con.query(sql, function (err, result) {
 		  });
 		});
+	});
+
+	// Fonction qui appele le systeme embarque pour 
+	// synchroniser nos base de donnees
+	socket.on('synchroniser', function() {
+		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroniserSysEmb } ");
+		socket.emit('synchroniserSysEmb');		
+		socket.emit('synchroDone');
+	});
+	
+	// Fonction qui appele le systeme embarque pour 
+	// synchroniser nos base de donnees
+	socket.on('reponseSysEmb', function(data) {
+		var json = JSON.parse(data);
+		/*
+		var json = {
+		"productId":["1", "1"],
+		"temperature":["420", "69"],
+		"dateProduction":["2018-05-24","2018-06-18"],
+		"niveau":["17","23"]
+		};
+		*/
+		con.connect(function(err) {
+			console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id)+ " (SysEmq)", " { reponseSysEmb } ");
+			for(i in json.temperature){
+				var sql = "INSERT INTO tbldetail (productId, temperature, dateProduction, niveau) VALUES ('" + json.productId[i] + "','" + json.temperature[i] + "','" + json.dateProduction[i] + "','" + json.niveau[i] + "')";
+				con.query(sql, function (err, result) {
+				});
+			}
+		});
+		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroDone } ");
+		socket.emit('synchroDone');		
 	});
 
 	socket.on('disconnect', function() {

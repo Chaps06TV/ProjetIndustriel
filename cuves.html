@@ -59,12 +59,15 @@
   		<h1 class="font-weight-light" style="text-align: center;">Cuves</h1>
   	</div>
 
-    <div class="row" id="formRecherche" name="formRecherche">
+    <div class="row col-lg-12" id="formRecherche" name="formRecherche">
       <div class="col-lg-5">
         <label for="inputListeClient">Client</label>
         <select class="col-lg-12 form-control" id="inputListeClient" name="inputListeClient" onchange="Populer()">
           <option value="0">S&eacute;lectionner</option>
         </select>
+      </div>
+      <div class="col-lg-7" style="position: relative;">
+        <button type="button" class="btn btn-success" style="position: absolute; bottom: 0px; right: 0px;" onclick="synchroniserOnClick()">Rafra&icirc;chir</button>
       </div>
     </div>
 
@@ -138,6 +141,19 @@
       }
     })
     }
+
+    function synchroniserOnClick() {
+      // Envoie de la demande pour synchroniser
+      // les cuves avec le systeme embarque
+      socket.emit('synchroniser');
+
+    }
+
+    // Code qui s'execute lors de la reponse pour synchroniser
+    // les cuves avec le systeme embarque
+    socket.on('synchroDone', function(data) {
+      Populer();
+    })
 
     function formatDate(template, date) {
       var specs = 'YYYY:MM:DD:HH:mm:ss'.split(':');
