@@ -1,3 +1,4 @@
+
 -- MySQL dump 10.16  Distrib 10.1.30-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: bdd_industriel
@@ -18,6 +19,9 @@
 --
 -- Table structure for table `tblclient`
 --
+
+CREATE SCHEMA IF NOT EXISTS `bdd_industriel` DEFAULT CHARACTER SET utf8 ;
+USE `bdd_industriel` ;
 
 DROP TABLE IF EXISTS `tblclient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -106,5 +110,7 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
 
 -- Dump completed on 2019-03-07 14:18:09
