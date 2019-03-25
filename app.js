@@ -159,13 +159,13 @@ io.sockets.on('connection', function(socket){
 	socket.on('synchroniser', function() {
 		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroniserSysEmb } ");
 		socket.emit('synchroniserSysEmb');		
-		socket.emit('synchroDone');
 	});
 	
 	// Fonction qui appele le systeme embarque pour 
 	// synchroniser nos base de donnees
 	socket.on('reponseSysEmb', function(data) {
-		var json = JSON.parse(data);
+		var json = JSON.parse(data.json);
+		var id = data.productId;
 		/*
 		var json = {
 		"productId":["1", "1"],
@@ -177,7 +177,7 @@ io.sockets.on('connection', function(socket){
 		con.connect(function(err) {
 			console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id)+ " (SysEmq)", " { reponseSysEmb } ");
 			for(i in json.temperature){
-				var sql = "INSERT INTO tbldetail (productId, temperature, dateProduction, niveau) VALUES ('" + json.productId[i] + "','" + json.temperature[i] + "','" + json.dateProduction[i] + "','" + json.niveau[i] + "')";
+				var sql = "INSERT INTO tbldetail (productId, temperature, dateProduction, niveau) VALUES ('" + id + "','" + json.temperature[i] + "','" + json.dateProduction[i] + "','" + json.niveau[i] + "')";
 				con.query(sql, function (err, result) {
 				});
 			}
