@@ -1,0 +1,58 @@
+CE DOCUMENT ILLUSTRE DES DÉFINITIONS POUR UNE BASE DE DONNÉE "mysql"
+NOMMÉE "bdd_industriel":
+PAR Jean-Philippe Araujo
+
+-----------------------------------------------------------------------------------
+	          --:||||||: SHEMA RELATIONNEL :||||||:-- 		         -----
+-----------------------------------------------------------------------------------
+
+Table #1 :
+  nom => "tblProduction" 
+  définition => "table Production"
+  description => Cette table permet à enregistrer des productions produite par un client. La table est associé à la table "tblDetail". 
+  		 Un client peut avoir plusieurs "productions" qui à son tour peut avoir plusieurs "détails".
+    
+  attribut1 => "productId"
+  type => "INT(11)", NOT NULL, AUTO INCREMENT
+  clé => PK
+  définition => "identifiant de production"
+  description => Cette valeur unique nous permet d'associé la table "tblDetail" à cette table et différencié les productions avec les 
+  		 mêmes attributs. Le minimum est 1 et le maximum est la valeur maximal un INT(11) peut prendre vue qu'il n'y a pas 
+		 vraiment de limite sur le nombre de production il peut y avoir.
+                                             
+  attribut2 => "clientId"
+  type => "INT(11)", NOT NULL
+  clé => FK -> "tblClient"
+  définition => "identifiant d'un client"
+  description => Il ne peut y avoir des nombres négatifs et le maximum que cette attribut peut avoir est la limite qu'un INT(11) peut 
+  		 prendre vue qu'il n'a pas vraiment de limite sur le nombre de client qu'on peut avoir.
+
+  attribut3 => "quantité"
+  type => "FLOAT"
+  définition => "quantité du produit"
+  description => Cette attribut est utilisé pour sauvegarder la quantité en Litre enregistré par le système embarqué. Il est seulement 
+  		 accessible par l'application web, ce qui signifie que cette attribut peut être NULL. Le minimum est 0 (pour aucun 
+		 résultat) et le maximum est 400 Litres, tout comme la grandeur de notre plus grande Cuve.
+  
+  attribut4 => "echeance"
+  type => "DATETIME"
+  définition => "date le produit doit être terminé"
+  description => On enregistre la date que cette production est due (son échéance). Cette valeur doit être mise manuellement après que 
+  		 la production est créer, autrement dit, elle peut être NULL. le minimum est le maintenant (un temps avant cela est 
+		 impossible) et le maximum est 5 ans. 
+  
+  attribut5 => "nom"
+  type => VARCHAR(50)
+  définition => "nom de la production/produit"
+  description => Ce champ est utilisé pour nommée la production comme voulu. Soit vous nommé le produit mélangé ou vous donné le nom de 
+  		 votre projet, ce champs est optionnel. Le minimum est NULL (s'il n'y a pas de nom) et le maximum est 50 lettres (comme
+		 kradiutimilistu mustokadavaristakus coluniromboros)(les espaces comptent).
+		 
+-----------------------------------------------------------------------------------
+			--:||||||: COMMANDE SQL :||||||:--                       -----
+-----------------------------------------------------------------------------------
+
+  procedure => "SysEmbBackup( int inputClient)"
+  return => productId (INT)
+  définition => "Système embarqué backup"
+  description => Cette procedure créer une instance de produit dans la table "tblProduction".
