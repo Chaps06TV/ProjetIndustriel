@@ -158,7 +158,7 @@ io.sockets.on('connection', function(socket){
 	// synchroniser nos base de donnees
 	socket.on('synchroniser', function() {
 		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroniserSysEmb } ");
-		socket.emit('synchroniserSysEmb');		
+		socket.emit('synchroniserSysEmb');	
 	});
 	
 	// Fonction qui appele le systeme embarque pour 
@@ -176,8 +176,8 @@ io.sockets.on('connection', function(socket){
 		*/
 		con.connect(function(err) {
 			console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id)+ " (SysEmq)", " { reponseSysEmb } ");
-			for(i in json.temperature){
-				var sql = "INSERT INTO tbldetail (productId, temperature, dateProduction, niveau) VALUES ('" + id + "','" + json.temperature[i] + "','" + json.dateProduction[i] + "','" + json.niveau[i] + "')";
+			for(var i in json){
+				var sql = "INSERT INTO tbldetail (productId, temperature, dateProduction, niveau) VALUES ('" + id + "','" + json[i].temperature + "','" + json[i].dateProduction + "','" + json[i].niveau + "')";
 				con.query(sql, function (err, result) {
 				});
 			}
