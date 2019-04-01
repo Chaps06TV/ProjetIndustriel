@@ -5,9 +5,9 @@ Projet Industriel - Techniques de Développement et Modélisation
 ### Requêtes
 ```load_Cb``` Charger tous les clients
 
-```load_client Charger``` un client spécifique
+```load_client``` Charger un client spécifique
 
-```load_commande Charger``` toutes les commandes d'un client
+```load_commande``` Charger toutes les commandes d'un client
 
 ```load_commande_client``` Charger une commande spécifique
 
