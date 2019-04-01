@@ -158,7 +158,7 @@ io.sockets.on('connection', function(socket){
 	// synchroniser nos base de donnees
 	socket.on('synchroniser', function() {
 		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroniserSysEmb } ");
-		socket.emit('synchroniserSysEmb');	
+		socket.broadcast.emit('synchroniserSysEmb');	
 	});
 	
 	// Fonction qui appele le systeme embarque pour 
@@ -183,7 +183,7 @@ io.sockets.on('connection', function(socket){
 			}
 		});
 		console.log('\x1b[33m%s\x1b[37m%s\x1b[0m', GetConnection(socket.id), " { synchroDone } ");
-		socket.emit('synchroDone');		
+		socket.broadcast.emit('synchroDone');		
 	});
 
 	socket.on('disconnect', function() {
