@@ -167,6 +167,7 @@
     
   }
 
+ // Réponse du serveur pour populer le client
   socket.on('reponse_load_client', function(data) {
     var result = data.result;
     document.getElementById("nomClient").value = result[0].nom;
@@ -176,7 +177,7 @@
     clientChange();
   })
   
-  
+  // Réponse du serveur pour charger le combobox de clients
   socket.on('reponse_load_Cb', function(data) {
       var cb = document.getElementById("inputListeClient");
       cb.innerHTML = "";
